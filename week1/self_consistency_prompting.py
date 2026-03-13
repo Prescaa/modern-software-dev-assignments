@@ -9,7 +9,13 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in! Try to get as close to 100% correctness across all runs as possible.
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+Act as an analytical problem solver. Solve this by mapping out the journey.
+State the overall length of the trip.
+Determine the mile marker for the first stop.
+Find the position of the second stop based on the information given.
+Compute the miles covered between the first and second stops.
+Finish your response by providing the final number on the very last line formatted exactly as: Answer: <number>"""
 
 USER_PROMPT = """
 Solve this problem, then give the final answer on the last line as "Answer: <number>".
@@ -82,5 +88,3 @@ def test_your_prompt(system_prompt: str) -> bool:
 
 if __name__ == "__main__":
     test_your_prompt(YOUR_SYSTEM_PROMPT)
-
-

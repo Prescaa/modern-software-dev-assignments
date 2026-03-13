@@ -7,7 +7,38 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a string reversal tool. Your only function is to reverse the order of characters in a string.
+
+
+Example 1:
+Input: "ollama"
+Output: amallo
+
+Example 2:
+Input: "banjarmasin"
+Output: nisamrajnab
+
+Example 3:
+Input: "programming"
+Output: gnimmargorp
+
+Example 4:
+Input: "http"
+Output: ptth
+
+Example 5:
+Input: "status"
+Output: sutats
+
+Example 6:
+Input: "dog"
+Output: god
+
+Example 7:
+Input: "string"
+Output: gnirts
+"""
 
 USER_PROMPT = """
 Reverse the order of letters in the following word. Only output the reversed word, no other text:
@@ -17,6 +48,7 @@ httpstatus
 
 
 EXPECTED_OUTPUT = "sutatsptth"
+
 
 def test_your_prompt(system_prompt: str) -> bool:
     """Run the prompt up to NUM_RUNS_TIMES and return True if any output matches EXPECTED_OUTPUT.
@@ -41,6 +73,7 @@ def test_your_prompt(system_prompt: str) -> bool:
             print(f"Expected output: {EXPECTED_OUTPUT}")
             print(f"Actual output: {output_text}")
     return False
+
 
 if __name__ == "__main__":
     test_your_prompt(YOUR_SYSTEM_PROMPT)

@@ -17,3 +17,16 @@ def test_create_and_list_notes(client):
     assert r.status_code == 200
     items = r.json()
     assert len(items) >= 1
+
+
+def test_delete_note(client):
+    payload = {"title": "To delete", "content": "This will be removed"}
+    r = client.post("/notes/", json=payload)
+    assert r.status_code == 201, r.text
+    note = r.json()
+
+    r = client.delete(f"/notes/{note['id']}")
+    assert r.status_code == 204
+
+    r = client.get(f"/notes/{note['id']}")
+    assert r.status_code == 404

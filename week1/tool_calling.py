@@ -60,6 +60,7 @@ def add(a: int, b: int) -> int:
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 
+
 # Tool registry for dynamic execution by name
 TOOL_REGISTRY: Dict[str, Callable[..., str]] = {
     "output_every_func_return_type": output_every_func_return_type,
@@ -70,7 +71,9 @@ TOOL_REGISTRY: Dict[str, Callable[..., str]] = {
 # ==========================
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """Tool: output_every_func_return_type(file_path: str)
+Task: Call with empty file_path to list function return types.
+Output format: {"tool": "...", "args": {...}}"""
 
 
 def resolve_path(p: str) -> str:
@@ -125,7 +128,9 @@ def execute_tool_call(call: Dict[str, Any]) -> str:
 
     # Best-effort path resolution if a file_path arg is present
     if "file_path" in args and isinstance(args["file_path"], str):
-        args["file_path"] = resolve_path(args["file_path"]) if str(args["file_path"]) != "" else __file__
+        args["file_path"] = (
+            resolve_path(args["file_path"]) if str(args["file_path"]) != "" else __file__
+        )
     elif "file_path" not in args:
         # Provide default for tools expecting file_path
         args["file_path"] = __file__

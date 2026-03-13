@@ -8,7 +8,10 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+For modular arithmetic problems, find the cycle pattern in powers. 
+For mod 100, track how the last two digits cycle. Once you spot the repeating pattern, you can reduce the exponent modulo the cycle length.
+Put your final answer on its own line like this: Answer: <number>"""
 
 
 USER_PROMPT = """
@@ -68,5 +71,3 @@ def test_your_prompt(system_prompt: str) -> bool:
 
 if __name__ == "__main__":
     test_your_prompt(YOUR_SYSTEM_PROMPT)
-
-

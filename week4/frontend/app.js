@@ -11,6 +11,13 @@ async function loadNotes() {
   for (const n of notes) {
     const li = document.createElement('li');
     li.textContent = `${n.title}: ${n.content}`;
+    const btn = document.createElement('button');
+    btn.textContent = 'Delete';
+    btn.onclick = async () => {
+      await fetchJSON(`/notes/${n.id}`, { method: 'DELETE' });
+      loadNotes();
+    };
+    li.appendChild(btn);
     list.appendChild(li);
   }
 }

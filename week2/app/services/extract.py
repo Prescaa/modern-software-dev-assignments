@@ -66,6 +66,48 @@ def extract_action_items(text: str) -> List[str]:
     return unique
 
 
+from typing import List
+import ollama
+import json
+
+
+def extract_action_items_llm(text: str) -> List[str]:
+    """
+    Ekstrak action items menggunakan model tinyllama via Ollama, output harus array JSON string sesuai format structured output Ollama.
+    """
+    prompt = (
+        "Extract all action items or to-dos from the text below in bullet point format. "
+        'Return ONLY a JSON array of strings (no explanation). Example output: ["action 1", "action 2"]. '
+        "Text:\n---\n"
+        f"{text}\n---"
+    )
+    try:
+        response = ollama.generate(model="tinyllama", prompt=prompt, options={"format": "json"})
+        # Ollama may return JSON as string or dict, handle both
+        if isinstance(response, dict):
+            if "response" in response:
+                content = response["response"]
+            elif "choices" in response and response["choices"]:
+                content = response["choices"][0].get("content", "")
+            else:
+                content = ""
+        else:
+            content = response
+
+        # Try to parse as JSON (if the LLM returned extra text, try to extract JSON array)
+        # Remove any prefix/suffix accidentally returned by LLM
+        start = content.find("[")
+        end = content.rfind("]")
+        if start != -1 and end != -1:
+            content = content[start : end + 1]
+        items = json.loads(content)
+        # Ensure result is a list of strings
+        return [str(i).strip() for i in items if isinstance(i, str)]
+    except Exception:
+        # Fallback: return empty list if parsing fails
+        return []
+
+
 def _looks_imperative(sentence: str) -> bool:
     words = re.findall(r"[A-Za-z']+", sentence)
     if not words:
