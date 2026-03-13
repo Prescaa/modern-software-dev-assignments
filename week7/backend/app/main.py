@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -14,11 +14,11 @@ app = FastAPI(title="Modern Software Dev Starter (Week 6)", version="0.1.0")
 # Ensure data dir exists
 Path("data").mkdir(parents=True, exist_ok=True)
 
-# Mount static frontend
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+frontend_dir = Path("frontend")
+if frontend_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="static")
 
 
-# Compatibility with FastAPI lifespan events; keep on_event for simplicity here
 @app.on_event("startup")
 def startup_event() -> None:
     Base.metadata.create_all(bind=engine)
@@ -27,7 +27,10 @@ def startup_event() -> None:
 
 @app.get("/")
 async def root() -> FileResponse:
-    return FileResponse("frontend/index.html")
+    index_path = frontend_dir / "index.html"
+    if not index_path.exists():
+        raise HTTPException(status_code=404, detail="Frontend not found")
+    return FileResponse(str(index_path))
 
 
 # Routers
@@ -35,3 +38,4 @@ app.include_router(notes_router.router)
 app.include_router(action_items_router.router)
 
 
+ 
