@@ -19,7 +19,6 @@ if frontend_dir.exists():
     app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="static")
 
 
-# Compatibility with FastAPI lifespan events; keep on_event for simplicity here
 @app.on_event("startup")
 def startup_event() -> None:
     Base.metadata.create_all(bind=engine)
