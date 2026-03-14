@@ -1,0 +1,267 @@
+/* ── Reset & base ──────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+/* ── App layout ───────────────────────────────────── */
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  color: #38bdf8;
+}
+
+/* ── Tabs ─────────────────────────────────────────── */
+.tab {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #e2e8f0;
+}
+
+.tab.active {
+  background: #1e293b;
+  color: #38bdf8;
+}
+
+/* ── Notes layout ─────────────────────────────────── */
+.notes-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .notes-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Note form ────────────────────────────────────── */
+.note-form {
+  background: #1e293b;
+  padding: 1.25rem;
+  border-radius: 10px;
+}
+
+.note-form h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.note-form input,
+.note-form textarea,
+.note-form select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.note-form textarea {
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-error {
+  color: #f87171;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* ── Buttons ──────────────────────────────────────── */
+.btn {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #334155;
+}
+
+.btn-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-delete {
+  color: #f87171;
+}
+
+.btn-delete:hover {
+  background: #7f1d1d;
+  border-color: #7f1d1d;
+  color: #fff;
+}
+
+.btn-edit {
+  color: #38bdf8;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+/* ── Search bar ───────────────────────────────────── */
+.search-bar {
+  margin-bottom: 1rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+/* ── Note cards ───────────────────────────────────── */
+.note-card {
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.note-header h3 {
+  font-size: 1rem;
+}
+
+.note-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.note-content {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+  white-space: pre-wrap;
+}
+
+.note-category {
+  display: inline-block;
+  font-size: 0.75rem;
+  background: #334155;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.note-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.empty {
+  color: #64748b;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* ── Category manager ─────────────────────────────── */
+.category-manager {
+  max-width: 500px;
+}
+
+.category-manager h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.category-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-form input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.category-list {
+  list-style: none;
+}
+
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  background: #1e293b;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.category-list li div {
+  display: flex;
+  gap: 0.4rem;
+}
