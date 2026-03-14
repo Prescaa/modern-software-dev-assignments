@@ -1,0 +1,27 @@
+<%-
+  include("layout", {
+    pageTitle,
+    categories: categories || [],
+    selectedCategoryId: null,
+    body: `
+      <div class="flex flex-col items-center justify-center text-center py-12 gap-3 w-full">
+        <div class="h-12 w-12 rounded-2xl bg-slate-900/80 border border-slate-800/80 flex items-center justify-center text-slate-500 mb-1">
+          404
+        </div>
+        <h1 class="text-base font-semibold text-slate-50 mb-1">
+          Not found
+        </h1>
+        <p class="text-[12px] text-slate-500 max-w-sm">
+          <%= message || "The page you are looking for does not exist or has moved." %>
+        </p>
+        <a
+          href="/"
+          class="mt-3 inline-flex items-center justify-center rounded-xl border border-slate-800/80 bg-slate-950/60 px-4 py-2 text-[11px] font-medium text-slate-300 hover:bg-slate-900/80 hover:text-slate-50 transition"
+        >
+          Back to dashboard
+        </a>
+      </div>
+    `,
+  })
+%>
+

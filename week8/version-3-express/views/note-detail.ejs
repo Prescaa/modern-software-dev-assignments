@@ -1,0 +1,82 @@
+<%-
+  include("layout", {
+    pageTitle,
+    categories,
+    selectedCategoryId: note.category_id || null,
+    body: `
+      <div class="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-4 max-w-5xl">
+        <article class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-5 py-5">
+          <header class="flex items-start justify-between gap-4 mb-3">
+            <div class="space-y-1">
+              <h1 class="text-base font-semibold text-slate-50">
+                ${note.title}
+              </h1>
+              <div class="flex items-center gap-2">
+                ${
+                  note.category_name
+                    ? `<span class="inline-flex items-center gap-1 rounded-full border border-slate-700/80 px-2 py-0.5 text-[10px] text-slate-300">
+                        <span class="h-2 w-2 rounded-full" style="background-color: ${note.category_color};"></span>
+                        <span>${note.category_name}</span>
+                      </span>`
+                    : `<span class="inline-flex items-center rounded-full border border-slate-700/80 px-2 py-0.5 text-[10px] text-slate-400">
+                        Uncategorised
+                      </span>`
+                }
+              </div>
+            </div>
+            <form method="POST" action="/notes/${note.id}/delete">
+              <button
+                type="submit"
+                class="text-[11px] text-slate-500 hover:text-red-400 hover:bg-red-950/40 border border-transparent hover:border-red-900 rounded-lg px-2 py-1 transition"
+              >
+                Delete
+              </button>
+            </form>
+          </header>
+
+          <div class="mt-3">
+            <pre class="whitespace-pre-wrap text-sm text-slate-200 font-mono leading-relaxed">
+${note.content}
+            </pre>
+          </div>
+        </article>
+
+        <aside class="space-y-4">
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800/80 px-4 py-4">
+            <h2 class="text-sm font-semibold text-slate-50 mb-1">
+              Action Items
+            </h2>
+            <p class="text-[11px] text-slate-500 mb-3">
+              Parsed from <code>TODO:</code> lines and sentences ending with <code>!</code>.
+            </p>
+            ${
+              note.actionItems && note.actionItems.length
+                ? `<ul class="space-y-1.5 text-[12px] text-slate-200">
+                    ${note.actionItems
+                      .map(
+                        (item) =>
+                          `<li class="flex items-start gap-2">
+                            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                            <span class="leading-snug">${item}</span>
+                          </li>`
+                      )
+                      .join("")}
+                  </ul>`
+                : `<p class="text-[12px] text-slate-500">
+                    No action items detected yet. Add a line like <code>TODO: ship the release</code> or a sentence like <code>Deploy to staging!</code>.
+                  </p>`
+            }
+          </div>
+
+          <a
+            href="/"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-800/80 bg-slate-950/60 px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-slate-900/80 hover:text-slate-50 transition w-full"
+          >
+            Back to dashboard
+          </a>
+        </aside>
+      </div>
+    `,
+  })
+%>
+

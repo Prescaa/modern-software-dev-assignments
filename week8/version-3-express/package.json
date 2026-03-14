@@ -1,0 +1,15 @@
+{
+  "name": "developer-control-center-v3-express",
+  "version": "1.0.0",
+  "description": "Version 3: Express + EJS Monolith with JSON Persistence.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.22.1",
+    "morgan": "^1.10.1"
+  }
+}
